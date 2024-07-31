@@ -1,0 +1,33 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: questions
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}/${DB_NAME:questions}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+  threads:
+    virtual:
+      enabled: true
+  flyway:
+    enabled: ${FLYWAY_ENABLED:true}
+    validate-migration-naming: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      probes:
+        enabled: on
+
+logging:
+  pattern:
+    level: "trace_id=%mdc{trace_id} span_id=%mdc{span_id} trace_flags=%mdc{trace_flags} %p"
