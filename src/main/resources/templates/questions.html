@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questions</title>
+    <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+
+</head>
+<body>
+
+<div th:fragment="questions" class="questions-list">
+    <h1>Questions</h1>
+    <div th:each="question : ${questions}" class="question">
+
+        <button
+                th:attr="hx-delete=@{/questions/{id}(id=${question.id()})}"
+                hx-confirm="Are you sure?"
+                hx-trigger="click"
+                hx-target="closest .question"
+        >delete
+        </button>
+        | <span th:text="${question.id()}">ID</span> | <span th:text="${question.description()}">description</span>
+
+    </div>
+
+    <div id="questions-form" th:fragment="questions-form" hx-swap-oob="true">
+        <h2>Add Question</h2>
+        <input type="text" name="new-question" id="new-question"/>
+
+        <button
+                hx-post="/questions"
+                hx-include="#new-question"
+                hx-target=".questions-list"
+                hx-trigger="click"
+        >add
+        </button>
+
+    </div>
+</div>
+
+
+</body>
+</html>

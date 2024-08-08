@@ -6,8 +6,8 @@ spring:
     name: questions
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}/${DB_NAME:questions}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root}
+    username: ${DB_USERNAME:agro}
+    password: ${DB_PASSWORD:agro}
     driver-class-name: org.postgresql.Driver
   threads:
     virtual:
